@@ -20,6 +20,8 @@
 
     chmod +x opsx
 
+`opsx` 必須以 LF line ending 儲存，並由 `.gitattributes` 固定 `.vscode/**` 與 `opsx` 為 LF；若在 WSL 內看到 `/usr/bin/env: 'sh\r': No such file or directory`，代表 wrapper 被 CRLF 化，需先修正換行。wrapper 也會拒絕 `/mnt/c/...` 的 Windows `node` / `openspec` shim；Phase 1 基準只接受 WSL 內安裝的 Linux Node.js 與 OpenSpec CLI。
+
 在 PowerShell 中從專案根執行：
 
     .\opsx <子命令>

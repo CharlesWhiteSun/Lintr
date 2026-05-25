@@ -2,5 +2,36 @@
 set -eu
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+NODE_BIN=$(command -v node || true)
+OPENSPEC_BIN=$(command -v openspec || true)
+
+if [ -z "$NODE_BIN" ]; then
+	printf '%s\n' "error: Linux node was not found in PATH." >&2
+	printf '%s\n' "Install Node.js inside this WSL distro before running ./opsx." >&2
+	exit 127
+fi
+
+case "$NODE_BIN" in
+	/mnt/*)
+		printf 'error: node resolves to a Windows path: %s\n' "$NODE_BIN" >&2
+		printf '%s\n' "Use a Linux Node.js installation in WSL; Windows Node is not a Phase 1 baseline." >&2
+		exit 126
+		;;
+esac
+
+if [ -z "$OPENSPEC_BIN" ]; then
+	printf '%s\n' "error: Linux openspec was not found in PATH." >&2
+	printf '%s\n' "Install the OpenSpec CLI inside this WSL distro before running ./opsx." >&2
+	exit 127
+fi
+
+case "$OPENSPEC_BIN" in
+	/mnt/*)
+		printf 'error: openspec resolves to a Windows path: %s\n' "$OPENSPEC_BIN" >&2
+		printf '%s\n' "Use a Linux OpenSpec CLI in WSL; Windows npm shims are not a Phase 1 baseline." >&2
+		exit 126
+		;;
+esac
+
 cd "$SCRIPT_DIR/.vscode"
-exec openspec "$@"
+exec "$OPENSPEC_BIN" "$@"

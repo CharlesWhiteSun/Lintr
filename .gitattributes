@@ -1,0 +1,4 @@
+.vscode/** text eol=lf
+.vscode/**/*.db binary
+opsx text eol=lf
+*.sh text eol=lf

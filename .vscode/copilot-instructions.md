@@ -158,7 +158,7 @@
   若有 unresolved repeated failure，必須新增/更新 operational trap 或標註 false positive。
 7. **OpenSpec change 收尾**（若本任務有建立 OpenSpec change）：
 
-   a. 確認所有 tasks 均已 completed（`.\.opsx status --change {name}`）
+  a. 確認所有 tasks 均已 completed：WSL 使用 `./opsx status --change {name}`；Windows legacy 使用 `.\opsx status --change {name}` 或 `opsx.bat status --change {name}`
    b. 執行 `/opsx:archive` 封存 change（archive 後必須接著執行 rebuild）
 
    > 若任務僅為 bug 修復（無 OpenSpec change），跳過此步驟。

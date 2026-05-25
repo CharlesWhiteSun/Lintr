@@ -5,15 +5,16 @@
 <!-- AUTO_BEGIN -->
 **定義**：AI Agent 工具/命令失敗後需記錄 fingerprint、停止原樣重試，並升級為 repair guard 或 trap
 **關鍵字**：Agent, repair-record, repair-health, fingerprint, repeated failure
-**相關 trap 數**：0
+**相關 trap 數**：1
 
 ## 相關 Trap
 
 | id | 一句話 | 主要檔案 | 連結 |
 |----|--------|---------|------|
-| - | _尚無相關 trap_ | - | - |
+| 1 | WSL opsx wrapper 因 CRLF shebang 或 Windows PATH 失效 | opsx, .vscode/openspec-cheatsheet.md | [→](../trap-001.md) |
 <!-- AUTO_END -->
 
 ## 防呆原則
 
-（手動編輯，CLI 不會覆寫此區）
+- WSL-first 工具失敗時，若 `node` 本身不在 PATH，可用 VS Code Server 內建的 Linux Node 作為臨時 `kb.mjs repair-record` 執行器，但不得把 Windows Node/npm shim 視為已驗證環境。
+- `repair-status` 未出現 pending 不代表可忽略根因；若 failure 暴露可重複踩到的 wrapper、PATH、encoding 問題，仍應補 operational trap。

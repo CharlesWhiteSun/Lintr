@@ -1,1 +1,11 @@
-{}
+{
+  "/usr/bin/env: sh carriage return": [
+    1
+  ],
+  "./opsx list 在 WSL 內失敗": [
+    1
+  ],
+  "openspec 解析到 /mnt/c Windows npm path": [
+    1
+  ]
+}

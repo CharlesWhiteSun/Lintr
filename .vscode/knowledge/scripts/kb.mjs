@@ -859,7 +859,7 @@ async function cmdOpenspecCheck(args) {
         const incomplete = (content.match(/^\s*-\s*\[\s*\]/gm) || []).length;
         const completed  = (content.match(/^\s*-\s*\[x\]/gmi) || []).length;
         if (incomplete > 0) {
-          warnings.push(`openspec/changes/${name}: ${incomplete} incomplete task(s) (${completed} done) — run '.\\opsx status --change ${name}'`);
+          warnings.push(`openspec/changes/${name}: ${incomplete} incomplete task(s) (${completed} done) — WSL run './opsx status --change ${name}' (Windows legacy: '.\\opsx status --change ${name}')`);
         } else if (completed > 0) {
           warnings.push(`openspec/changes/${name}: all ${completed} task(s) done but not archived — run /opsx:archive`);
         }

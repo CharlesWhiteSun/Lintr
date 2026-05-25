@@ -58,6 +58,8 @@
 
 - `.vscode` / `.vscode/knowledge` 可能被一般搜尋忽略；請改用直接讀檔、列目錄或 include ignored。
 - Windows PowerShell 5.1 不使用 `&&`；請用分號或分開命令。
+- WSL shell wrapper（例如 `opsx`）與 `.vscode/**` 工作流/知識庫檔必須保持 LF line ending，並用 `.gitattributes` 固定；若 shebang 變成 `sh\r`，先修正換行再驗證。
+- WSL-first 階段不得把 `/mnt/c/...` 的 Windows `node`、`npm`、`npx` 或 `openspec` 當成 Linux baseline。
 - 禁止 `Get-Content | Set-Content`、`Set-Content`、`(Get-Content) -replace` 改寫知識庫 UTF-8 檔案。
 - `/start-plan` 的 `agent` 值以本機 VS Code diagnostics 為準；若 `Plan` 合法，不要擅自改成 lowercase `plan`。
 - VS Code `files.encoding` 應使用 `utf8`，不是 `utf-8`。

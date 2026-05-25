@@ -56,5 +56,6 @@
 - `cargo test --workspace`
 - `cargo build --workspace`
 - `./opsx list`（WSL / Linux shell）
+- `command -v node openspec` 不應解析到 `/mnt/c/...` Windows shim
 - `node .vscode/knowledge/scripts/kb.mjs rebuild`
 - `node .vscode/knowledge/scripts/kb.mjs finish-check`
