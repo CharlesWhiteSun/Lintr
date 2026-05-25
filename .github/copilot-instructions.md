@@ -5,6 +5,8 @@
 
 ## Rule
 
+The primary shell execution environment is WSL 2 + VS Code Remote - WSL at `/home/charles/www/Lintr`.
+
 Use RTK for allowed high-noise shell commands in this WSL workspace:
 
 ```bash

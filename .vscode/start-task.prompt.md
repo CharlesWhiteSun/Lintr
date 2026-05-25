@@ -14,6 +14,7 @@ description: "開始新任務前，自動載入精簡知識庫並啟動問題分
 - Phase 2 後 Rust/Cargo、Node/npm、ripgrep、git、SQLite/build tools 與 Linux OpenSpec 應在 WSL shell 可用；若 Node/OpenSpec 解析到 `/mnt/c/...`，先修正 PATH，不要視為已驗證。
 - Phase 3 後 RTK 應為 `/home/charles/.cargo/bin/rtk`、版本 `rtk 0.40.0`；先用 `rtk --version` / `rtk gain` 確認不是同名錯包。
 - Phase 4 後 `.github/hooks/rtk-rewrite.json` 已存在；fresh IDE/Copilot session 可再驗證 transparent rewrite。若目前 AI Chat terminal 的 raw `git status` / `rg` 未被 rewrite，使用顯式 `rtk ...` fallback。
+- Phase 5 後 WSL-first Agent 命令執行層以 decision-002 為準；OpenSpec 在 WSL 中使用 `./opsx`，Windows wrapper 只作 legacy fallback。
 - RTK 可用於 `git`、`rg`、Cargo test/build/lint 等高噪音 shell 輸出；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取保持 canonical/raw。
 
 ## OpenSpec 預讀（新功能 / 規格變更才需要）

@@ -26,6 +26,7 @@
 - Phase 3 RTK 基準：RTK 來源為 `TokenFleet-AI/rtk` git repository（不是 npm `rtk` release tool，也不是 crates.io `rtk` Rust Type Kit），binary 為 `/home/charles/.cargo/bin/rtk`，驗證版本 `rtk 0.40.0`；已驗證 `rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md`。
 - Phase 4 RTK hook 基準：`rtk init -g --copilot --auto-patch` 已建立 project-scoped `.github/copilot-instructions.md` 與 `.github/hooks/rtk-rewrite.json`；`/home/charles/.config/rtk/config.toml` 以 `exclude_commands` 排除 `kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取。
 - Phase 4 驗證結果：`rtk rewrite` / `rtk hook check --agent copilot` 會將 `git status`、`rg ...`、`cargo test` rewrite 成 RTK 命令；目前既有 AI Chat terminal 的 raw `git status` / `rg` 尚未透明 rewrite，需重啟 IDE/Copilot session 後再確認，期間保留顯式 `rtk ...` fallback。
+- Phase 5 工作流基準：以 `.vscode/knowledge/modules/lintr/decisions/decision-002.md` 固定 WSL-first Agent 命令執行層；OpenSpec 在 WSL 中以 `./opsx` 為 canonical wrapper，`opsx.ps1` / `opsx.bat` 僅作 Windows legacy fallback。
 - RTK 是「命令輸出壓縮層」，不是知識庫來源；知識查閱仍以 `.vscode/knowledge`、OpenSpec 與本檔為準。
 - 只允許 RTK hook 或顯式 `rtk ...` 包裝明確允許的高噪音命令。排除 RTK 的命令：`kb.mjs`、`opsx` / `openspec`、安裝/下載命令、`env` / log / 可能含 secrets 的輸出。
 - 若 RTK 壓縮摘要不足以判斷錯誤，必須改用 canonical command 或 RTK verbose/raw fallback，不得只憑摘要重試或下結論。

@@ -1,4 +1,6 @@
+.gitattributes text eol=lf
 .vscode/** text eol=lf
 .vscode/**/*.db binary
+.github/** text eol=lf
 opsx text eol=lf
 *.sh text eol=lf
