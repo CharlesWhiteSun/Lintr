@@ -1,8 +1,10 @@
 {
   "command-preflight": [
-    1
+    1,
+    2
   ],
   "agent-runtime-failure": [
-    1
+    1,
+    2
   ]
 }

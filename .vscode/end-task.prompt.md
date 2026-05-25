@@ -10,6 +10,7 @@ description: "任務結束後，更新知識庫並輸出 Commit 訊息"
 ## 執行環境前提
 
 - 收尾預設在 WSL 2 + VS Code Remote - WSL workspace 內執行；若仍在 Windows PowerShell，只能作為過渡期 fallback，需在回報中說明。
+- Phase 2 後 canonical `node` 應為 WSL Linux Node（目前 `/home/charles/.local/bin/node`），不可使用 `/mnt/c/...` Windows Node/npm shim 執行知識庫收尾。
 - 知識庫健康檢查初期保持 canonical command，不透過 RTK 自動 rewrite：`node .vscode/knowledge/scripts/kb.mjs rebuild` 與 `node .vscode/knowledge/scripts/kb.mjs finish-check`。
 - OpenSpec 在 WSL 中優先使用 `./opsx`；Windows legacy shell 才使用 `.\opsx` 或 `opsx.bat`。
 

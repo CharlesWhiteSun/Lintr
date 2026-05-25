@@ -7,5 +7,14 @@
   ],
   "openspec 解析到 /mnt/c Windows npm path": [
     1
+  ],
+  "sudo -v 回報 may not run sudo": [
+    2
+  ],
+  "apt-get install 無法由 charles 執行": [
+    2
+  ],
+  "WSL 內呼叫 wsl.exe 回 Exec format error": [
+    2
   ]
 }

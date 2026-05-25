@@ -25,6 +25,16 @@ Phase 1 基準如下：
 - WSL copy 為了對齊目前 Windows 工作樹 CRLF 狀態，已在該 repo 的 local Git config 設定 `core.autocrlf=true`；後續可在專案正式切 WSL 後再規劃 LF 正規化。
 - VS Code Remote - WSL extension 已安裝，可用 `code --remote wsl+Ubuntu-24.04 /home/charles/www/Lintr` 開啟主要工作視窗。
 
+Phase 2 基準如下：
+
+- Rust 透過 rustup minimal 安裝於 `~/.cargo/bin`，驗證版本為 `rustc 1.95.0`、`cargo 1.95.0`。
+- Node.js 以官方 Linux x64 tarball 安裝於 `~/.local/opt/node-current`，shim 位於 `~/.local/bin`，驗證版本為 `node v24.16.0`、`npm 11.13.0`。
+- ripgrep 以 Linux x64 release binary 安裝於 `~/.local/bin/rg`，驗證版本為 `ripgrep 15.1.0`。
+- OpenSpec CLI 安裝正確套件 `@fission-ai/openspec`，`openspec` 解析到 `~/.local/bin/openspec`，驗證版本為 `1.3.1`；錯誤的 `openspec@0.0.0` 不可作 CLI 來源。
+- Ubuntu apt 套件已安裝 `build-essential`、`sqlite3`、`libsqlite3-dev`、`pkg-config`；驗證版本包含 `git 2.43.0`、`sqlite3 3.45.1`、`gcc 13.3.0`、GNU Make `4.3`、`pkg-config 1.8.1`。
+- 初始 `charles` 使用者不在 `sudo` 群組；已由 Windows PowerShell 以 root 進入 WSL 修復 sudo membership 後完成 apt 安裝。
+- 目前 repo 尚無 root `Cargo.toml`；`cargo fmt/clippy/test/build --workspace` 待 Lintr MVP workspace scaffold 後驗證。
+
 RTK 初期排除範圍如下：
 
 - `node .vscode/knowledge/scripts/kb.mjs ...`

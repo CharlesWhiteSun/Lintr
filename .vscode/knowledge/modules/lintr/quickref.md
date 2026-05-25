@@ -10,6 +10,7 @@
 
 - 第一階段以 Ubuntu 24.04 WSL 2 + VS Code Remote - WSL 作為主要命令執行環境；Windows 端 workspace 僅作短期 rollback。
 - Repo 長期放在 `/home/charles/www/Lintr`；不從 WSL 長期操作 `/mnt/d/www/Lintr`。
+- Phase 2 工具鏈已在 WSL 內完成：Rust/Cargo、Node/npm、ripgrep、git、SQLite/build tools、Linux OpenSpec；`~/.cargo/bin` 與 `~/.local/bin` 已加入 shell PATH。
 - RTK 僅壓縮高噪音 shell 輸出；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令初期保留 canonical/raw。
 
 ## Crate 邊界
@@ -51,11 +52,13 @@
 
 ## 驗證指令
 
+- Phase 2 toolchain：`rustc --version`、`cargo --version`、`node --version`、`rg --version`、`git --version`、`sqlite3 --version`、`gcc --version`、`make --version`、`pkg-config --version`
+- `command -v node openspec rg rustc cargo sqlite3 gcc pkg-config` 不應將 Node/OpenSpec/ripgrep 解析到 `/mnt/c/...` Windows shim
 - `cargo fmt --all -- --check`
 - `cargo clippy --workspace --all-targets -- -D warnings`
 - `cargo test --workspace`
 - `cargo build --workspace`
+- 目前 repo 尚無 root `Cargo.toml`；Cargo workspace 驗證待 Lintr MVP scaffold 後執行。
 - `./opsx list`（WSL / Linux shell）
-- `command -v node openspec` 不應解析到 `/mnt/c/...` Windows shim
 - `node .vscode/knowledge/scripts/kb.mjs rebuild`
 - `node .vscode/knowledge/scripts/kb.mjs finish-check`

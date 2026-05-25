@@ -8,6 +8,7 @@
 - WSL 長期工作目錄應位於 Linux filesystem，例如 `~/www/Lintr`；不建議從 WSL 長期操作 `/mnt/d/www/Lintr`。
 - Phase 0 基準：Windows 端 `git status --short` 無未提交檔案；`git status --short --branch` 顯示 `main...origin/main [gone]`，WSL 端重建遠端追蹤前需注意。
 - Phase 1 基準：已安裝 Ubuntu 24.04 LTS WSL 2，預設 distro 為 `Ubuntu-24.04`，預設使用者為 `charles`，Linux workspace 為 `/home/charles/www/Lintr`。
+- Phase 2 基準：Rust/Cargo、Node/npm、ripgrep、git、SQLite/build tools 與 Linux OpenSpec 已安裝在 WSL shell；`node` / `openspec` / `rg` 不得解析到 `/mnt/c/...`。
 - VS Code Remote - WSL extension 已安裝；主要工作視窗應以 `code --remote wsl+Ubuntu-24.04 /home/charles/www/Lintr` 或 Remote - WSL 指令開啟。
 - RTK 只作為高噪音 shell 輸出的 token 壓縮層，不是知識來源；`.vscode/knowledge` 仍以直接讀檔、列目錄或 include ignored 搜尋為準。
 - 初期保留 raw/canonical 的命令：`node .vscode/knowledge/scripts/kb.mjs ...`、`opsx` / `openspec`、安裝/下載命令、`env` / log / 可能含 secrets 的輸出。
@@ -60,6 +61,7 @@
 - Windows PowerShell 5.1 不使用 `&&`；請用分號或分開命令。
 - WSL shell wrapper（例如 `opsx`）與 `.vscode/**` 工作流/知識庫檔必須保持 LF line ending，並用 `.gitattributes` 固定；若 shebang 變成 `sh\r`，先修正換行再驗證。
 - WSL-first 階段不得把 `/mnt/c/...` 的 Windows `node`、`npm`、`npx` 或 `openspec` 當成 Linux baseline。
+- 若 `sudo -v` 回報 `user charles may not run sudo`，需從 Windows PowerShell 以 root 進入 WSL 執行 `usermod -aG sudo charles`，重啟 distro 後再跑 apt；不要在 WSL bash 內原樣重試 apt。
 - 禁止 `Get-Content | Set-Content`、`Set-Content`、`(Get-Content) -replace` 改寫知識庫 UTF-8 檔案。
 - `/start-plan` 的 `agent` 值以本機 VS Code diagnostics 為準；若 `Plan` 合法，不要擅自改成 lowercase `plan`。
 - VS Code `files.encoding` 應使用 `utf8`，不是 `utf-8`。

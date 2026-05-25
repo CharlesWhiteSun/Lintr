@@ -4,9 +4,9 @@
 
 | slug | 名稱 | 相關 trap 數 | 連結 |
 |------|------|-------------|------|
-| agent-runtime-failure | Agent runtime failure 閉環 | 1 | [→](agent-runtime-failure.md) |
+| agent-runtime-failure | Agent runtime failure 閉環 | 2 | [→](agent-runtime-failure.md) |
 | tool-search-visibility | 工具搜尋可見性與 .vscode 讀取 | 0 | [→](tool-search-visibility.md) |
-| command-preflight | 命令執行前 preflight | 1 | [→](command-preflight.md) |
+| command-preflight | 命令執行前 preflight | 2 | [→](command-preflight.md) |
 | prompt-agent-compat | VS Code prompt agent 相容性 | 0 | [→](prompt-agent-compat.md) |
 | vscode-settings-encoding | VS Code settings encoding id | 0 | [→](vscode-settings-encoding.md) |
 | powershell-encoding | PowerShell UTF-8 編碼損毀 | 0 | [→](powershell-encoding.md) |
