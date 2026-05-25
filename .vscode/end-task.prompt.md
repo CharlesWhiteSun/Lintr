@@ -7,6 +7,12 @@ description: "任務結束後，更新知識庫並輸出 Commit 訊息"
 
 > 依 `copilot-instructions.md`「任務結束後」固定順序執行。
 
+## 執行環境前提
+
+- 收尾預設在 WSL 2 + VS Code Remote - WSL workspace 內執行；若仍在 Windows PowerShell，只能作為過渡期 fallback，需在回報中說明。
+- 知識庫健康檢查初期保持 canonical command，不透過 RTK 自動 rewrite：`node .vscode/knowledge/scripts/kb.mjs rebuild` 與 `node .vscode/knowledge/scripts/kb.mjs finish-check`。
+- OpenSpec 在 WSL 中優先使用 `./opsx`；Windows legacy shell 才使用 `.\opsx` 或 `opsx.bat`。
+
 ## 執行步驟
 
 1. **若有新陷阱** → 執行（`--topics --symptoms` 強烈建議帶上）：
@@ -39,7 +45,7 @@ description: "任務結束後，更新知識庫並輸出 Commit 訊息"
 
 7. **若本任務有建立 OpenSpec change**（新功能 / 規格變更任務）：
 
-   a. 確認所有 tasks 已完成：`.\opsx status --change <change-name>`
+    a. 確認所有 tasks 已完成：WSL 使用 `./opsx status --change <change-name>`；Windows legacy 使用 `.\opsx status --change <change-name>`
    b. 執行 `/opsx:archive` 封存 change（archive 後立即接 rebuild）
 
    > 若為純 bug 修復（無 OpenSpec change），跳過此步驟。

@@ -2,6 +2,15 @@
 
 > 目的：把 AI Agent 的讀取失敗、錯誤命令、錯誤搜尋路徑與重複嘗試，轉成可記錄、可阻斷、可回歸的知識。
 
+## 執行環境與 RTK 政策
+
+- 第一階段直接採用 WSL 2 + VS Code Remote - WSL 作為主要命令執行環境；Windows 端 `D:\www\Lintr` 僅作短期 rollback 來源。
+- WSL 長期工作目錄應位於 Linux filesystem，例如 `~/www/Lintr`；不建議從 WSL 長期操作 `/mnt/d/www/Lintr`。
+- Phase 0 基準：Windows 端 `git status --short` 無未提交檔案；`git status --short --branch` 顯示 `main...origin/main [gone]`，WSL 端重建遠端追蹤前需注意。
+- RTK 只作為高噪音 shell 輸出的 token 壓縮層，不是知識來源；`.vscode/knowledge` 仍以直接讀檔、列目錄或 include ignored 搜尋為準。
+- 初期保留 raw/canonical 的命令：`node .vscode/knowledge/scripts/kb.mjs ...`、`opsx` / `openspec`、安裝/下載命令、`env` / log / 可能含 secrets 的輸出。
+- 使用 RTK 後若需要完整錯誤上下文，改用 canonical command、RTK verbose/raw fallback，或讀取 RTK tee failure log；不得只依壓縮摘要做破壞性判斷。
+
 ## 任務開始
 
 1. 先讀本檔，再執行 `start-check`。

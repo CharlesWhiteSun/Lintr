@@ -1,12 +1,20 @@
 # OpenSpec 指令速查
 
 > **根目錄**：`.vscode/openspec/`
-> **包裝腳本**：`opsx.bat`（CMD）/ `opsx.ps1`（PowerShell）— 放在**專案根目錄**，不入版控
+> **包裝腳本**：`opsx`（WSL / bash）/ `opsx.bat`（CMD）/ `opsx.ps1`（PowerShell）— 放在**專案根目錄**；WSL-first wrapper 應隨工作流文件一起維護
 > **執行位置**：從**專案根目錄**執行 `opsx`，無需手動切換目錄
 
 ---
 
 ## 快速上手
+
+在 WSL / Linux shell 中從專案根執行：
+
+    ./opsx <子命令>
+
+若初次遷移後權限不足，先執行：
+
+    chmod +x opsx
 
 在 PowerShell 中從專案根執行：
 
@@ -22,40 +30,40 @@
 
 ### 查看現有 Changes
 
-    .\opsx list
+    ./opsx list
 
 ### 查看 Change 完成狀態
 
-    .\opsx status --change <change-name>
-    .\opsx status --change <change-name> --json
+    ./opsx status --change <change-name>
+    ./opsx status --change <change-name> --json
 
 ### 建立新 Change（功能開發）
 
-    .\opsx new change <change-name>
+    ./opsx new change <change-name>
 
 > 預設使用 `project-feature` schema（research → proposal → specs → design → tasks）。
 > Change 目錄產生於 `.vscode/openspec/changes/<change-name>/`。
 
 ### 建立新 Change（Bug 修復）
 
-    .\opsx new change <change-name> --schema project-bugfix
+    ./opsx new change <change-name> --schema project-bugfix
 
 > `project-bugfix` 流程：proposal → specs → tasks（省略 research / design）。
 
 ### 取得 Artifact 撰寫指引
 
-    .\opsx instructions <artifact-id> --change <change-name>
-    .\opsx instructions <artifact-id> --change <change-name> --json
+    ./opsx instructions <artifact-id> --change <change-name>
+    ./opsx instructions <artifact-id> --change <change-name> --json
 
 artifact-id 可為：`research` / `proposal` / `specs` / `design` / `tasks`
 
 ### Apply 指引（查看下一個要實作的 task）
 
-    .\opsx instructions apply --change <change-name> --json
+    ./opsx instructions apply --change <change-name> --json
 
 ### 封存完成的 Change
 
-    .\opsx archive <change-name>
+    ./opsx archive <change-name>
 
 封存後的目錄：`.vscode/openspec/changes/archive/YYYY-MM-DD-<change-name>/`
 
@@ -141,6 +149,7 @@ artifact-id 可為：`research` / `proposal` / `specs` / `design` / `tasks`
 ## 重要注意事項
 
 - **OpenSpec ≠ 知識庫**：OpenSpec 記錄「WHAT / 行為契約」，知識庫記錄「WHY / 根因與陷阱」
+- WSL-first 階段優先使用 `./opsx`；PowerShell / CMD 指令只作 Windows legacy fallback
 - `#start-plan` 是 Read-only，確認前不寫入；`/opsx:propose` 才是實際建立 change 的寫入動作
 - 修改 `.vscode/openspec/specs/` 後必須同步更新 `specs/INDEX.md` 的 Requirements 數量
 - Step 6（`/opsx:archive`）必須在 Step 7（`kb.mjs rebuild`）之前，封存後的 spec 連結才能被 FTS 索引
