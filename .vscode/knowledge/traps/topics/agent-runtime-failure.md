@@ -22,3 +22,4 @@
 - `repair-status` 未出現 pending 不代表可忽略根因；若 failure 暴露可重複踩到的 wrapper、PATH、encoding 問題，仍應補 operational trap。
 - sudo membership 或 Windows interop 失敗時，記錄 fingerprint 後改用 Windows PowerShell root repair；不要把同一條 WSL 內 `wsl.exe` 或 apt 命令原樣重試。
 - 若 `rtk --version` 找不到或 `rtk gain` 不符合 token savings 統計，記錄 failure 後先檢查是否安裝到同名錯包，不要直接啟用 hook。
+- RTK Copilot hook 安裝後既有 IDE/Chat session 可能不會即時透明 rewrite；若 raw `git status` / `rg` 仍是原始輸出，先保留顯式 `rtk ...` fallback，重啟 session 後再測。

@@ -42,11 +42,18 @@ Phase 3 基準如下：
 - `rtk gain` 初次可顯示 no tracking data；執行 `rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md` 後，`rtk gain` 已可顯示 Global Scope token savings。
 - Phase 3 不啟用 `rtk init` / hook 自動 rewrite，避免誤包 `kb.mjs`、`opsx` / `openspec`、安裝/下載、`env` / log / secrets 類高風險命令。
 
+Phase 4 基準如下：
+
+- `rtk init -g --copilot --auto-patch` 已建立 `.github/copilot-instructions.md` 與 `.github/hooks/rtk-rewrite.json`，hook command 為 `rtk hook copilot`。
+- `/home/charles/.config/rtk/config.toml` 設定 `exclude_commands`，讓 `kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取不被自動 rewrite。
+- `rtk rewrite` 與 `rtk hook check --agent copilot` 驗證 `git status`、`rg ...`、`cargo test` 可 rewrite；`cargo test` 實際執行仍待 root `Cargo.toml` scaffold 後驗證。
+- 目前既有 AI Chat terminal 的 raw `git status` / `rg` 尚未透明 rewrite；RTK installer 也提示需 restart IDE/Copilot CLI session，因此在 fresh session 驗證前保留顯式 `rtk ...` fallback。
+
 RTK 初期排除範圍如下：
 
 - `node .vscode/knowledge/scripts/kb.mjs ...`
 - `opsx` / `openspec`
-- 安裝、下載、環境變數、log、可能含 secrets 的輸出
+- 安裝、下載、環境變數、log、可能含 secrets 的輸出或檔案讀取
 
 ## 原因
 

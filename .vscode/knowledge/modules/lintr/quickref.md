@@ -12,7 +12,8 @@
 - Repo 長期放在 `/home/charles/www/Lintr`；不從 WSL 長期操作 `/mnt/d/www/Lintr`。
 - Phase 2 工具鏈已在 WSL 內完成：Rust/Cargo、Node/npm、ripgrep、git、SQLite/build tools、Linux OpenSpec；`~/.cargo/bin` 與 `~/.local/bin` 已加入 shell PATH。
 - Phase 3 RTK 已在 WSL 內完成：`/home/charles/.cargo/bin/rtk`，版本 `rtk 0.40.0`，來源為 `TokenFleet-AI/rtk` git repository。
-- RTK 僅壓縮高噪音 shell 輸出；初期只直接呼叫 `rtk ...`，不啟用自動 rewrite hook；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令保持 canonical/raw。
+- Phase 4 RTK Copilot hook 已安裝 project-scoped `.github/hooks/rtk-rewrite.json`，並以 `/home/charles/.config/rtk/config.toml` 排除 `kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取。
+- RTK 僅壓縮高噪音 shell 輸出；hook 未在當前 AI Chat terminal 生效時，使用顯式 `rtk ...` fallback；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令保持 canonical/raw。
 
 ## Crate 邊界
 
@@ -56,6 +57,7 @@
 - Phase 2 toolchain：`rustc --version`、`cargo --version`、`node --version`、`rg --version`、`git --version`、`sqlite3 --version`、`gcc --version`、`make --version`、`pkg-config --version`
 - `command -v node openspec rg rustc cargo sqlite3 gcc pkg-config` 不應將 Node/OpenSpec/ripgrep 解析到 `/mnt/c/...` Windows shim
 - Phase 3 RTK：`rtk --version`、`rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md`
+- Phase 4 RTK hook：`rtk config`、`rtk rewrite "git status"`、`rtk rewrite "rg Phase .vscode/knowledge"`、`rtk hook check --agent copilot cargo test`；raw `git status` / `rg` 未透明 rewrite 時保留顯式 `rtk ...` fallback
 - `cargo fmt --all -- --check`
 - `cargo clippy --workspace --all-targets -- -D warnings`
 - `cargo test --workspace`

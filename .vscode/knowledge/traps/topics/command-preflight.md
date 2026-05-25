@@ -22,3 +22,4 @@
 - `./opsx`、`openspec`、`kb.mjs` 初期保持 canonical/raw；若失敗，先記 repair fingerprint，再改用直接讀檔或 Linux Node fallback。
 - 需要 apt 安裝前先跑 `sudo -v`；若使用者不在 sudo 群組，改從 Windows PowerShell 以 WSL root 修復 membership，不要在 WSL bash 內重複 apt。
 - 安裝 RTK 前先辨識套件來源；npm `rtk` 與 crates.io `rtk` 都不是 Rust Token Killer，必須以 `TokenFleet-AI/rtk` git 來源安裝並用 `rtk gain` 驗證。
+- 啟用 RTK hook 後先跑 `rtk config`、`rtk rewrite "git status"` 與 `rtk hook check --agent copilot cargo test`；`exclude_commands` 必須排除 `kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取。
