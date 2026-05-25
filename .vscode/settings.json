@@ -1,0 +1,16 @@
+{
+  "chat.promptFiles": true,
+  "chat.promptFilesLocations": {
+    ".vscode": true,
+    ".vscode/prompts": true
+  },
+  "files.readonlyInclude": {
+    "**/.cargo/registry/src/**/*.rs": true,
+    "**/.cargo/git/checkouts/**/*.rs": true,
+    "**/lib/rustlib/src/rust/library/**/*.rs": true
+  },
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": false,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
+}

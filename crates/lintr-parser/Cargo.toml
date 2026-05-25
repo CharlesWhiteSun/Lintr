@@ -1,0 +1,11 @@
+[package]
+name    = "lintr-parser"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Python source parser wrapper for Lintr (rustpython-parser facade)"
+
+[dependencies]
+lintr-core        = { workspace = true }
+rustpython-parser = { workspace = true }
+thiserror         = { workspace = true }

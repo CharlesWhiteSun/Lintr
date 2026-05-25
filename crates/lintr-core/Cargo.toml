@@ -1,0 +1,10 @@
+[package]
+name    = "lintr-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core types for Lintr: Diagnostic, Rule trait, Severity, Category, TextRange"
+
+[dependencies]
+thiserror = { workspace = true }
+serde     = { workspace = true }

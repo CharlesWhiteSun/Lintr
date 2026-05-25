@@ -1,0 +1,10 @@
+[package]
+name    = "lintr-rules"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Built-in lint rules for Lintr (Style / Bug / Security)"
+
+[dependencies]
+lintr-core   = { workspace = true }
+lintr-parser = { workspace = true }
