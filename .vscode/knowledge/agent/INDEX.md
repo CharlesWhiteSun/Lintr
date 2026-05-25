@@ -12,6 +12,7 @@
 - Phase 3 基準：RTK `0.40.0` 已由 `cargo install --git https://github.com/TokenFleet-AI/rtk --locked --force` 安裝至 `/home/charles/.cargo/bin/rtk`；`rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md` 已驗證。
 - Phase 4 基準：`rtk init -g --copilot --auto-patch` 已安裝 project-scoped Copilot hook 檔；`rtk rewrite` / `rtk hook check --agent copilot` 已驗證 `git status`、`rg ...`、`cargo test` 可 rewrite。
 - Phase 5 基準：`.vscode/knowledge/modules/lintr/decisions/decision-002.md` 固定 WSL-first Agent 命令執行層；OpenSpec 在 WSL 中使用 `./opsx`，Windows `opsx.ps1` / `opsx.bat` 僅作 legacy fallback。
+- Phase 6 基準：`node .vscode/knowledge/scripts/kb.mjs rebuild` / `finish-check` 已通過；`rtk gain` 顯示 7 commands、1.8K tokens saved、39.8%，`rtk discover` 無 missed savings，`rtk session` 目前無 Claude Code session data。
 - VS Code Remote - WSL extension 已安裝；主要工作視窗應以 `code --remote wsl+Ubuntu-24.04 /home/charles/www/Lintr` 或 Remote - WSL 指令開啟。
 - RTK 只作為高噪音 shell 輸出的 token 壓縮層，不是知識來源；`.vscode/knowledge` 仍以直接讀檔、列目錄或 include ignored 搜尋為準。
 - 既有 AI Chat terminal 可能不會即時載入新 Copilot hook；若 raw `git status` / `rg` 未透明 rewrite，先用顯式 `rtk ...` fallback，並在重啟 IDE/Copilot session 後再驗證。
@@ -68,6 +69,7 @@
 - WSL-first 階段不得把 `/mnt/c/...` 的 Windows `node`、`npm`、`npx` 或 `openspec` 當成 Linux baseline。
 - 安裝 RTK 時不得使用 npm `rtk`（release tool）或 crates.io `rtk`（Rust Type Kit）；若 `rtk gain` 不存在或失敗，先移除錯包並改用 `TokenFleet-AI/rtk` git 來源。
 - 改動 `/home/charles/.config/rtk/config.toml` 後必須跑 `rtk config`；不要留下不完整 section（例如缺欄位的 `[tee]`），否則 hook/rewrite 會退化或報 parse error。
+- Phase 6 後一週內若 RTK 壓縮摘要造成漏看錯誤、誤判或錯誤重試，先改用 raw/canonical command 取完整輸出，再用 `repair-record` 與 `new-trap` 建立 operational trap。
 - 若 `sudo -v` 回報 `user charles may not run sudo`，需從 Windows PowerShell 以 root 進入 WSL 執行 `usermod -aG sudo charles`，重啟 distro 後再跑 apt；不要在 WSL bash 內原樣重試 apt。
 - 禁止 `Get-Content | Set-Content`、`Set-Content`、`(Get-Content) -replace` 改寫知識庫 UTF-8 檔案。
 - `/start-plan` 的 `agent` 值以本機 VS Code diagnostics 為準；若 `Plan` 合法，不要擅自改成 lowercase `plan`。

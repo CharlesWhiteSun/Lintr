@@ -14,6 +14,7 @@
 - Phase 3 RTK 已在 WSL 內完成：`/home/charles/.cargo/bin/rtk`，版本 `rtk 0.40.0`，來源為 `TokenFleet-AI/rtk` git repository。
 - Phase 4 RTK Copilot hook 已安裝 project-scoped `.github/hooks/rtk-rewrite.json`，並以 `/home/charles/.config/rtk/config.toml` 排除 `kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log/可能含 secrets 的檔案讀取。
 - Phase 5 決策紀錄：`.vscode/knowledge/modules/lintr/decisions/decision-002.md` 固定 WSL-first Agent 命令執行層；OpenSpec 在 WSL 中使用 `./opsx`，Windows wrappers 僅作 legacy fallback。
+- Phase 6 驗證：`rebuild` / `finish-check` 通過；`rtk gain`、`rtk discover`、`rtk session` 可執行。觀察一週，若 RTK 壓縮遮蔽錯誤，新增 operational trap。
 - RTK 僅壓縮高噪音 shell 輸出；hook 未在當前 AI Chat terminal 生效時，使用顯式 `rtk ...` fallback；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令保持 canonical/raw。
 
 ## Crate 邊界
@@ -60,6 +61,7 @@
 - Phase 3 RTK：`rtk --version`、`rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md`
 - Phase 4 RTK hook：`rtk config`、`rtk rewrite "git status"`、`rtk rewrite "rg Phase .vscode/knowledge"`、`rtk hook check --agent copilot cargo test`；raw `git status` / `rg` 未透明 rewrite 時保留顯式 `rtk ...` fallback
 - Phase 5 OpenSpec：`./opsx list` 在 WSL 中必須使用 Linux `node` / `openspec`；Windows `opsx.ps1` / `opsx.bat` 僅作 legacy shell fallback
+- Phase 6 analytics：`rtk gain`、`rtk discover`、`rtk session`；`rtk session` 無 session data 不代表 RTK 失敗
 - `cargo fmt --all -- --check`
 - `cargo clippy --workspace --all-targets -- -D warnings`
 - `cargo test --workspace`

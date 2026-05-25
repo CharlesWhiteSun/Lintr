@@ -14,6 +14,7 @@ description: "任務結束後，更新知識庫並輸出 Commit 訊息"
 - Phase 3 後 RTK 可直接包裝高噪音驗證命令，但知識庫健康檢查仍保持 canonical command，不透過 RTK 或 RTK 自動 rewrite：`node .vscode/knowledge/scripts/kb.mjs rebuild` 與 `node .vscode/knowledge/scripts/kb.mjs finish-check`。
 - Phase 4 後即使 Copilot hook 已安裝，收尾仍使用 canonical `node` / `./opsx`；不得依賴 hook rewrite 執行 rebuild、finish-check 或 OpenSpec archive。
 - Phase 5 後 `./opsx` 是 WSL-first OpenSpec canonical wrapper；Windows `opsx.ps1` / `opsx.bat` 只作 legacy fallback，不作 WSL 收尾替代。
+- Phase 6 後若本任務檢查 RTK analytics，可加跑 `rtk gain` / `rtk discover` / `rtk session`；analytics 不取代 canonical `rebuild` / `finish-check`。
 - OpenSpec 在 WSL 中優先使用 `./opsx`；Windows legacy shell 才使用 `.\opsx` 或 `opsx.bat`。
 
 ## 執行步驟

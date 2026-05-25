@@ -31,6 +31,8 @@ curl / wget / npm install / npm ci / npx / cargo install / apt / apt-get
 
 If the transparent Copilot hook is not active in the current IDE or Chat session, use explicit `rtk ...` fallback for allowed high-noise commands.
 
+Use `rtk gain`, `rtk discover`, and `rtk session` for analytics only. If compressed output hides an error, rerun the canonical/raw command and record an operational trap.
+
 ## Meta commands (use directly)
 
 ```bash

@@ -28,6 +28,8 @@ Phase 4 後 RTK Copilot hook 已安裝，但 hook config 必須排除 `./opsx` /
 
 Phase 5 後 WSL-first OpenSpec canonical wrapper 為 `./opsx`；`opsx.ps1` / `opsx.bat` 僅作 Windows legacy fallback。若 `./opsx` 在 WSL 內失效，先修正 Linux wrapper、LF 或 PATH，不改回長期使用 Windows wrapper。
 
+Phase 6 驗證中，`finish-check` 只保留既有 `lintr-python-linter-mvp` incomplete tasks warning；OpenSpec status 仍用 `./opsx status --change <change-name>` 檢查，不透過 RTK analytics 判定規格完成度。
+
 在 PowerShell 中從專案根執行：
 
     .\opsx <子命令>
