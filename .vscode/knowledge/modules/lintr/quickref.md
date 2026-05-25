@@ -8,8 +8,8 @@
 
 ## 執行環境
 
-- 第一階段以 WSL 2 + VS Code Remote - WSL 作為主要命令執行環境；Windows 端 workspace 僅作短期 rollback。
-- Repo 長期放在 WSL Linux filesystem；不從 WSL 長期操作 `/mnt/d/www/Lintr`。
+- 第一階段以 Ubuntu 24.04 WSL 2 + VS Code Remote - WSL 作為主要命令執行環境；Windows 端 workspace 僅作短期 rollback。
+- Repo 長期放在 `/home/charles/www/Lintr`；不從 WSL 長期操作 `/mnt/d/www/Lintr`。
 - RTK 僅壓縮高噪音 shell 輸出；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令初期保留 canonical/raw。
 
 ## Crate 邊界

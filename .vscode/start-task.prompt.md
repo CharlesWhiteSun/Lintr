@@ -9,8 +9,8 @@ description: "開始新任務前，自動載入精簡知識庫並啟動問題分
 
 ## 執行環境前提
 
-- 主要命令執行環境為 WSL 2 + VS Code Remote - WSL；若目前 terminal 仍在 Windows PowerShell，先回報環境偏差，不要把 WSL-only 指令當成已驗證。
-- Repo 長期工作目錄應位於 WSL Linux filesystem（例如 `~/www/Lintr`），Windows 端 `D:\www\Lintr` 僅作短期 rollback 來源。
+- 主要命令執行環境為 Ubuntu 24.04 WSL 2 + VS Code Remote - WSL；若目前 terminal 仍在 Windows PowerShell，先回報環境偏差，不要把 WSL-only 指令當成已驗證。
+- Repo 長期工作目錄為 `/home/charles/www/Lintr`，Windows 端 `D:\www\Lintr` 僅作短期 rollback 來源。
 - RTK 可用於 `git`、`rg`、Cargo test/build/lint 等高噪音 shell 輸出；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令初期保持 canonical/raw。
 
 ## OpenSpec 預讀（新功能 / 規格變更才需要）

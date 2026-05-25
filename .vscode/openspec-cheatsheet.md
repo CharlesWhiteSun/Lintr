@@ -12,6 +12,10 @@
 
     ./opsx <子命令>
 
+用 VS Code Remote - WSL 開啟 Linux workspace：
+
+    code --remote wsl+Ubuntu-24.04 /home/charles/www/Lintr
+
 若初次遷移後權限不足，先執行：
 
     chmod +x opsx
