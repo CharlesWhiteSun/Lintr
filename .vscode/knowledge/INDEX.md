@@ -4,9 +4,9 @@
 
 ## Quick Context（30 秒）
 
-**技術棧**：Rust 2021 edition、Cargo workspace、rustpython-parser 0.4、serde + toml、thiserror
-**程式碼路徑**：`crates/lintr-core`、`crates/lintr-parser`、`crates/lintr-rules`、`crates/lintr-config`、`crates/lintr`
-**測試**：`cargo test --workspace`（Phase 5 補完）
+**技術棧**：Rust Cargo workspace；Library crate；分析 Python source；TOML config
+**程式碼路徑**：`crates/lintr-core`、`crates/lintr-parser`、`crates/lintr-config`、`crates/lintr-rules`、`crates/lintr`
+**測試**：TDD；`cargo fmt --all -- --check`、`cargo clippy --workspace --all-targets -- -D warnings`、`cargo test --workspace`、`cargo build --workspace`
 **Agent 操作守門**：[agent/INDEX.md](agent/INDEX.md)
 **OpenSpec 行為規格**：[../openspec/specs/INDEX.md](../openspec/specs/INDEX.md)（WHAT；新功能前必查）
 
@@ -18,11 +18,7 @@
 
 | 模組 | quickref | 一句話 |
 |------|----------|--------|
-| lintr-core   | modules/lintr-core/quickref.md   | 共用型別：Diagnostic, Rule trait, Severity, Category, TextRange |
-| lintr-parser | modules/lintr-parser/quickref.md | Python AST 解析包裝（rustpython-parser facade） |
-| lintr-rules  | modules/lintr-rules/quickref.md  | 內建 8 條規則（Style / Bug / Security） |
-| lintr-config | modules/lintr-config/quickref.md | TOML 設定載入（lintr.toml / pyproject.toml） |
-| lintr        | modules/lintr/quickref.md        | 根 library，暴露 lint() / lint_file() 公開 API |
+| lintr | [modules/lintr/quickref.md](modules/lintr/quickref.md) | Rust 實作的 Python linter library MVP；TDD/SOLID 為強制流程 |
 
 ## 已知陷阱（第 3 / 4 / 5 層）
 

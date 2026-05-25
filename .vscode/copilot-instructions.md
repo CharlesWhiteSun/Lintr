@@ -8,16 +8,43 @@
 
 | 項目 | 版本 / 說明 |
 |------|------------|
-| 語言 | （請填入） |
-| 框架 | （請填入） |
-| 資料庫 | （請填入） |
-| 測試框架 | （請填入） |
+| 語言 | Rust（Cargo workspace；以 library crates 為主） |
+| 分析目標 | Python source code（MVP） |
+| 主要架構 | Rust static analyzer / linter library；`crates/lintr` 聚合 public API |
+| Parser | `rustpython-parser`（由 `lintr-parser` 封裝；版本以 parser 測試驗證後鎖定） |
+| 設定格式 | TOML：`lintr.toml` 與 `pyproject.toml [tool.lintr]` |
+| 資料庫 | 無 |
+| 測試框架 | Rust `#[test]`、crate integration tests、`cargo test --workspace`、`cargo clippy` |
 
 ---
 
 ## 二、專案架構與命名慣例
 
-（請依專案性質填入：分層架構、命名慣例、路由前綴、主要功能模組）
+本專案先以「Rust 實作、分析 Python source、交付 Library crate」作為 Lintr MVP。第一版不包含 CLI、LSP、autofix、plugin system、type inference 或跨檔 import graph。
+
+### Cargo workspace 分層
+
+| Crate | 責任 | 依賴方向 |
+|------|------|----------|
+| `lintr-core` | 共用型別、`Diagnostic`、`Severity`、`Category`、`TextRange`、`Rule<C>` trait、錯誤型別 | 不依賴其他本地 crate |
+| `lintr-parser` | Python source parsing、`ParsedPythonFile`、`PythonLintContext`、source/range helper | 依賴 `lintr-core` |
+| `lintr-config` | TOML config 載入、default config、rule settings 查詢 | 依賴 `lintr-core` |
+| `lintr-rules` | 內建 style / bug / security rules 與 registry | 依賴 `lintr-core`、`lintr-parser` |
+| `lintr` | 對外 public API、re-export、lint orchestration | 依賴 core/parser/config/rules |
+
+### SOLID 開發規範
+
+- Single Responsibility：每個 crate、module、rule 僅負責一個清楚原因；每條規則獨立檔案或子模組。
+- Open/Closed：新增規則應透過 registry 或 factory 擴充，不改 engine 核心流程。
+- Liskov Substitution：所有規則以 `Rule<PythonLintContext>` 代換使用，不依賴具體規則型別。
+- Interface Segregation：`Rule<C>` trait 僅保留 code、category、settings、check 等必要行為；避免胖介面。
+- Dependency Inversion：高層 orchestration 依賴 `Rule<C>` 抽象與 config lookup；`lintr-core` 不可反向依賴 parser/rules/config。
+
+### 命名慣例
+
+- Crate 使用 `lintr-*` kebab-case；Rust module、function 使用 snake_case；type / trait 使用 PascalCase。
+- Rule code 使用固定前綴：`E###` style、`B###` bug、`S###` security。
+- Test 名稱描述行為，例如 `reports_line_too_long_when_limit_is_exceeded`。
 
 ---
 
@@ -217,6 +244,32 @@ type 選項：`feat` / `fix` / `hotfix` / `refactor` / `chore` / `docs`
 
 ## 四、測試規範
 
-（請依語言 / 框架填入：測試層次、命名慣例、執行指令）
+每次修改或新增功能，必須同步撰寫對應測試；Lintr 開發採 TDD 為預設流程。
 
-每次修改或新增功能，必須同步撰寫對應的測試。
+### TDD 強制流程
+
+1. Red：先寫會失敗的單元或整合測試，明確鎖定新行為或 bug 修正。
+2. Green：只寫足以讓測試通過的最小實作，不提前加入未使用抽象。
+3. Refactor：測試通過後才整理命名、抽象與 crate 邊界，並再次執行完整驗證。
+4. 若暫時無法測試，必須在回報中說明原因、風險與替代驗證方式。
+
+### 測試層次
+
+| 層次 | 位置 | 覆蓋內容 |
+|------|------|----------|
+| 單元測試 | 各 crate `src/` 內 `#[cfg(test)]` | core 型別、parser wrapper、config parsing、單條 rule 行為 |
+| 整合測試 | `crates/lintr/tests/` | `lint()` / `lint_file()` public API、config filtering、diagnostic ordering |
+| Fixture 測試 | `tests/fixtures/` 或 crate-local fixtures | Python source 範例、TOML / pyproject config 範例 |
+
+### 必跑指令
+
+- `cargo fmt --all -- --check`
+- `cargo clippy --workspace --all-targets -- -D warnings`
+- `cargo test --workspace`
+- `cargo build --workspace`
+
+### SOLID Review Gate
+
+- 新增規則前，先確認是否能只新增 rule module 與 registry entry。
+- 修改 core trait 前，必須確認所有既有 rule 都仍可代換，且沒有把 parser/rules/config 依賴帶回 core。
+- config 只能描述規則啟停與 rule settings，不應知道具體規則的實作細節。
