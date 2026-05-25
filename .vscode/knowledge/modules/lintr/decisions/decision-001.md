@@ -35,6 +35,13 @@ Phase 2 基準如下：
 - 初始 `charles` 使用者不在 `sudo` 群組；已由 Windows PowerShell 以 root 進入 WSL 修復 sudo membership 後完成 apt 安裝。
 - 目前 repo 尚無 root `Cargo.toml`；`cargo fmt/clippy/test/build --workspace` 待 Lintr MVP workspace scaffold 後驗證。
 
+Phase 3 基準如下：
+
+- 正確 RTK 來源為 `TokenFleet-AI/rtk` git repository；npm `rtk` 是 release/changelog tool，crates.io `rtk` 是 Rust Type Kit，兩者都不是本計劃的 RTK。
+- RTK 以 `cargo install --git https://github.com/TokenFleet-AI/rtk --locked --force` 安裝，binary 位於 `/home/charles/.cargo/bin/rtk`，驗證版本為 `rtk 0.40.0`。
+- `rtk gain` 初次可顯示 no tracking data；執行 `rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md` 後，`rtk gain` 已可顯示 Global Scope token savings。
+- Phase 3 不啟用 `rtk init` / hook 自動 rewrite，避免誤包 `kb.mjs`、`opsx` / `openspec`、安裝/下載、`env` / log / secrets 類高風險命令。
+
 RTK 初期排除範圍如下：
 
 - `node .vscode/knowledge/scripts/kb.mjs ...`

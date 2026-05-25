@@ -24,6 +24,8 @@
 
 Phase 2 後，`openspec` 應解析到 `/home/charles/.local/bin/openspec`，而不是 `/mnt/c/...`；Linux CLI 來源為 npm package `@fission-ai/openspec`。
 
+Phase 3 後 RTK 仍不包裝 `./opsx` / `openspec`；OpenSpec 指令保持 canonical/raw，避免規格流程或 archive/rebuild 順序被壓縮摘要遮蔽。
+
 在 PowerShell 中從專案根執行：
 
     .\opsx <子命令>

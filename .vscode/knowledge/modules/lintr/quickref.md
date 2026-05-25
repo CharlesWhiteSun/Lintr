@@ -11,7 +11,8 @@
 - 第一階段以 Ubuntu 24.04 WSL 2 + VS Code Remote - WSL 作為主要命令執行環境；Windows 端 workspace 僅作短期 rollback。
 - Repo 長期放在 `/home/charles/www/Lintr`；不從 WSL 長期操作 `/mnt/d/www/Lintr`。
 - Phase 2 工具鏈已在 WSL 內完成：Rust/Cargo、Node/npm、ripgrep、git、SQLite/build tools、Linux OpenSpec；`~/.cargo/bin` 與 `~/.local/bin` 已加入 shell PATH。
-- RTK 僅壓縮高噪音 shell 輸出；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令初期保留 canonical/raw。
+- Phase 3 RTK 已在 WSL 內完成：`/home/charles/.cargo/bin/rtk`，版本 `rtk 0.40.0`，來源為 `TokenFleet-AI/rtk` git repository。
+- RTK 僅壓縮高噪音 shell 輸出；初期只直接呼叫 `rtk ...`，不啟用自動 rewrite hook；`kb.mjs`、`opsx` / `openspec`、安裝/下載、env/log 類命令保持 canonical/raw。
 
 ## Crate 邊界
 
@@ -54,6 +55,7 @@
 
 - Phase 2 toolchain：`rustc --version`、`cargo --version`、`node --version`、`rg --version`、`git --version`、`sqlite3 --version`、`gcc --version`、`make --version`、`pkg-config --version`
 - `command -v node openspec rg rustc cargo sqlite3 gcc pkg-config` 不應將 Node/OpenSpec/ripgrep 解析到 `/mnt/c/...` Windows shim
+- Phase 3 RTK：`rtk --version`、`rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md`
 - `cargo fmt --all -- --check`
 - `cargo clippy --workspace --all-targets -- -D warnings`
 - `cargo test --workspace`

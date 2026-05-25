@@ -16,5 +16,14 @@
   ],
   "WSL 內呼叫 wsl.exe 回 Exec format error": [
     2
+  ],
+  "rtk gain 失敗或沒有 gain 子命令": [
+    3
+  ],
+  "npm rtk 描述為 release tool": [
+    3
+  ],
+  "crates.io rtk 描述為 Rust Type Kit": [
+    3
   ]
 }

@@ -23,8 +23,9 @@
 - 第一階段以 **WSL 2 + VS Code Remote - WSL** 作為主要命令執行環境；AI Chat terminal、Rust/Cargo、Node、OpenSpec 與 RTK 應在同一個 WSL shell 中運作。
 - Phase 1 基準環境為 `Ubuntu-24.04`（WSL 2）、預設使用者 `charles`、Linux workspace `/home/charles/www/Lintr`；Windows 端 `D:\www\Lintr` 僅作短期 rollback 來源，不作長期雙寫。
 - Phase 2 工具鏈基準：`rustc 1.95.0` / `cargo 1.95.0`（rustup minimal，`~/.cargo/bin`）、`node v24.16.0` / `npm 11.13.0` 與 OpenSpec `1.3.1`（`~/.local/bin`）、`ripgrep 15.1.0`（`~/.local/bin`）、`git 2.43.0`、`sqlite3 3.45.1`、`gcc 13.3.0`、GNU Make `4.3`、`pkg-config 1.8.1`。目前尚無 root `Cargo.toml`，Cargo workspace 驗證延後到 Lintr MVP scaffold 後執行。
+- Phase 3 RTK 基準：RTK 來源為 `TokenFleet-AI/rtk` git repository（不是 npm `rtk` release tool，也不是 crates.io `rtk` Rust Type Kit），binary 為 `/home/charles/.cargo/bin/rtk`，驗證版本 `rtk 0.40.0`；已驗證 `rtk gain`、`rtk git status`、`rtk ls .`、`rtk read .vscode/knowledge/INDEX.md`。
 - RTK 是「命令輸出壓縮層」，不是知識庫來源；知識查閱仍以 `.vscode/knowledge`、OpenSpec 與本檔為準。
-- 初期排除 RTK 自動 rewrite 的命令：`kb.mjs`、`opsx` / `openspec`、安裝/下載命令、`env` / log / 可能含 secrets 的輸出。
+- 初期不執行 `rtk init` / 自動 rewrite hook；只直接使用 `rtk ...` 包裝明確允許的高噪音命令。排除 RTK 的命令：`kb.mjs`、`opsx` / `openspec`、安裝/下載命令、`env` / log / 可能含 secrets 的輸出。
 - 若 RTK 壓縮摘要不足以判斷錯誤，必須改用 canonical command 或 RTK verbose/raw fallback，不得只憑摘要重試或下結論。
 
 ---
